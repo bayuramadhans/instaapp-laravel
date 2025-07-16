@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 
 Route::get('/user', function (Request $request) {
@@ -21,5 +22,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/{id}', [PostController::class, 'show']);
         Route::post('/', [PostController::class, 'store']);
         Route::delete('/{id}', [PostController::class, 'destroy']);
+    });
+    Route::group(['prefix' => 'comments'], function () {
+        Route::post('/', [CommentController::class, 'store']);
+        Route::delete('/{id}', [CommentController::class, 'destroy']);
     });
 });
